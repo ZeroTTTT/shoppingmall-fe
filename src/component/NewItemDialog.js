@@ -62,11 +62,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     // [['M',2]] 에서 {M:2}로 
     const totalStock = stock.reduce((total,item)=>{ //reduce?? array를 읽어와서 내가 원하는 형태로 바꿔준다.
       return {...total, [item[0]]:parseInt(item[1])}
-    },{})      
+    },{})          
     
     if (mode === 'new') {
       //새 상품 만들기
-      dispatch(productActions.createProduct({...formData, stock: totalStock}));
+      dispatch(productActions.createProduct({...formData, stock: totalStock}));      
       setShowDialog(false);
     } else {
       // 상품 수정하기
@@ -92,14 +92,20 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   //  재고 사이즈 변환하기
   const handleSizeChange = (value, index) => {
+    //  재고 사이즈 변환하기
+    // [[s,3], [m,3], [xl,3]]
     const newStock = [...stock];
+    newStock[index][0] = value;
     setStock(newStock);
   };
 
   // 재고 수량 변경하기
   const handleStockChange = (value, index) => {
+    //재고 수량 변환하기
+    // [[s,3], [m,3], [xl,3]]
     const newStock = [...stock];
-    setStock(newStock);
+    newStock[index][1] = value;
+    setStock(newStock);    
   };
 
   const onHandleCategory = (event) => {

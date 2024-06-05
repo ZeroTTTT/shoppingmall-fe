@@ -50,12 +50,15 @@ const AdminProduct = () => {
   }, [searchQuery]);
 
   const deleteItem = (id) => {
-    //아이템 삭제하가ㅣ
+    //아이템 삭제하기
   };
 
   const openEditForm = (product) => {
     //edit모드로 설정하고
+    setMode('edit');
     // 아이템 수정다이얼로그 열어주기
+    dispatch({type:types.SET_SELECTED_PRODUCT, payload: product}) //async가 아니기때문에 미들웨어 안거치고 바로 타입으로간다! 그리고 리퀘스트 뭐 그런거 따로없고
+    setShowDialog(true);
   };
 
   const handleClickNewItem = () => {

@@ -8,6 +8,7 @@ import '../style/adminProduct.style.css';
 import * as types from '../constants/product.constants';
 import { commonUiActions } from '../action/commonUiAction';
 import { Cloudinary } from '@cloudinary/url-gen';
+import { useSearchParams } from "react-router-dom";
 
 const CLOUDINARY_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
@@ -35,6 +36,16 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const [cloudName] = useState(CLOUDINARY_CLOUD_NAME);
   const [uploadPreset] = useState(CLOUDINARY_PRESET);
+
+
+  ///////임시
+  const [query, setQuery] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState({
+    page: query.get("page") || 1,
+    name: query.get("name") || "",
+  }); //검색 조건들을 저장하는 객체
+ ///////임시
+
 
   const [uwConfig] = useState({
     cloudName,
@@ -67,11 +78,13 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     
     if (mode === 'new') {
       //새 상품 만들기
-      dispatch(productActions.createProduct({...formData, stock: totalStock}));            
+      dispatch(productActions.createProduct({...formData, stock: totalStock}));                  
+      dispatch(productActions.getProductList({ ...searchQuery }))   //임시
       setShowDialog(false);
     } else {
       // 상품 수정하기
-      dispatch(productActions.editProduct({...formData, stock: totalStock}, selectedProduct._id));      
+      dispatch(productActions.editProduct({...formData, stock: totalStock}, selectedProduct._id));    
+      dispatch(productActions.getProductList({ ...searchQuery }))  //임시
       setShowDialog(false);      
     }
   };

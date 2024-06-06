@@ -38,13 +38,14 @@ const AdminProduct = () => {
     dispatch(productActions.getProductList({ ...searchQuery }))
   },[query])
 
-  //상품리스트 가져오기 (url쿼리 맞춰서)
-  useEffect(()=>{    
-    const params = new URLSearchParams(searchQuery);
-    const query = params.toString();
-    navigate('?' + query)
-    dispatch(productActions.getProductList({ ...searchQuery }))
-  },[showDialog])
+  // // 상품리스트 가져오기 (url쿼리 맞춰서)
+  // useEffect(()=>{    
+  //   const params = new URLSearchParams(searchQuery);
+  //   const query = params.toString();
+  //   navigate('?' + query)
+  //   dispatch(productActions.getProductList({ ...searchQuery }))
+  // },[showDialog])
+
 
 
   useEffect(() => {

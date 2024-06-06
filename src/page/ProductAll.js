@@ -14,6 +14,7 @@ const ProductAll = () => {
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.product.error);
   const searchKeyword = useSelector((state) => state.product.searchKeyword);
+
   const { productList, totalPageNum } = useSelector(state => state.product);
   const [query, setQuery] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState({
@@ -32,10 +33,16 @@ const ProductAll = () => {
     if (searchQuery.name === "") {
       delete searchQuery.name;
     }
+    if (searchQuery.name === "undefined") {
+      delete searchQuery.name;
+    }    
     // URLSearchParams - 객체를 쿼리로 만들어줌
     const params = new URLSearchParams(searchQuery);
     const query = params.toString();
     navigate("?" + query);
+    console.log("searchQuery = ", searchQuery);
+    console.log("query = ", query);
+    // dispatch(productActions.getProductList({ ...searchQuery }))
   }, [searchQuery]);
 
   useEffect(() => {
@@ -64,6 +71,23 @@ const ProductAll = () => {
                   </Col>
                 )}
               </Row>
+      {/* <Row>
+        {productList.length > 0 ? (
+            productList.map((item) => (
+                <Col md={3} sm={12} key={item._id}>
+                  <ProductCard item={item} />
+                </Col>
+            ))
+        ) : (
+            <div className="text-align-center empty-bag">
+              {searchQuery.name === "" ? (
+                  <h2>등록된 상품이 없습니다!</h2>
+              ) : (
+                  <h2>{searchQuery.name}과 일치한 상품이 없습니다!</h2>
+              )}
+            </div>
+        )}
+      </Row>               */}
 
               <ReactPaginate
                 nextLabel=">"

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../action/userAction";
 import * as types from "../constants/product.constants";
+import { productActions } from "../action/productAction";
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Navbar = ({ user }) => {
   let navigate = useNavigate();
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
-      console.log('enter')
+      // console.log('enter')
       if (event.target.value === "") {
         dispatch({ type: types.SET_SEARCH_KEYWORD, payload: "" });
         return navigate("/");
@@ -40,8 +41,9 @@ const Navbar = ({ user }) => {
 
       let searchKeyword = event.target.value;
       dispatch({ type: types.SET_SEARCH_KEYWORD, payload: searchKeyword });
-      console.log("tt", searchKeyword);
+      // console.log("tt", searchKeyword);
       navigate(`?name=${event.target.value}`);
+      // dispatch(productActions.getProductList({ ...searchQuery }))
     }
   };
   const logout = () => {

@@ -64,14 +64,15 @@ const ProductAll = () => {
           :
           (
             <Container>
-              <Row>
+              {/* <Row>
                 {productList?.map((product, index) =>
                   <Col key={index} className="card" md={3} sm={12}>
                     <ProductCard product={product} />
                   </Col>
                 )}
-              </Row>
-      {/* <Row>
+              </Row> */}
+
+{/* <Row>
         {productList.length > 0 ? (
             productList.map((item) => (
                 <Col md={3} sm={12} key={item._id}>
@@ -87,7 +88,26 @@ const ProductAll = () => {
               )}
             </div>
         )}
-      </Row>               */}
+      </Row>     */}
+
+              <Row>
+                {productList.length > 0 ? (
+                    productList?.map((product, index) =>
+                      <Col key={index} className="card" md={3} sm={12}>
+                        <ProductCard product={product} />
+                      </Col>
+                    )
+                ):(
+
+                <div className="text-align-center empty-bag">
+                {searchQuery.name === "" ? (
+                    <h2>등록된 상품이 없습니다!</h2>
+                ) : (
+                    <h2>{searchQuery.name}과 일치한 상품이 없습니다!</h2>
+                )}
+              </div>
+                )}  
+              </Row>          
 
               <ReactPaginate
                 nextLabel=">"

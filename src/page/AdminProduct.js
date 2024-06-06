@@ -66,7 +66,8 @@ const AdminProduct = () => {
     }
     const params = new URLSearchParams(searchQuery);
     const query = params.toString();
-    navigate('?' + query)
+    navigate('?' + query);
+    dispatch(productActions.getProductList({ ...searchQuery }))
   }, [searchQuery, showDialog, query]);
 
   const deleteItem = (id) => {

@@ -38,10 +38,13 @@ const AdminProduct = () => {
     dispatch(productActions.getProductList({ ...searchQuery }))
   },[query])
 
-    //상품리스트 가져오기 (url쿼리 맞춰서)
-    useEffect(()=>{
-      dispatch(productActions.getProductList({ ...searchQuery }))
-    },[showDialog])
+  //상품리스트 가져오기 (url쿼리 맞춰서)
+  useEffect(()=>{    
+    const params = new URLSearchParams(searchQuery);
+    const query = params.toString();
+    navigate('?' + query)
+    dispatch(productActions.getProductList({ ...searchQuery }))
+  },[showDialog])
 
 
   useEffect(() => {
@@ -56,6 +59,7 @@ const AdminProduct = () => {
 
   const deleteItem = (id) => {
     //아이템 삭제하기
+    dispatch(productActions.deleteProduct(id));
   };
 
   const openEditForm = (product) => {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import { currencyFormat } from "../utils/number";
 
-const OrderReceipt = () => {
+const OrderReceipt = ({ cartList, totalPrice, user }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -13,11 +13,20 @@ const OrderReceipt = () => {
       <h3 className="receipt-title">주문 내역</h3>
       <ul className="receipt-list">
         <li>
-          <div className="display-flex space-between">
-            <div>아이템이름</div>
-
-            <div>₩ 45,000</div>
-          </div>
+          {cartList.length > 0 &&
+            cartList.map((item, index) => (
+              <div className="display-flex space-between">
+                <div>
+                  {cartList.length === 0 || !user ? "-" : item.productId.name}
+                </div>
+                <div>
+                  ₩{" "}
+                  {cartList.length === 0 || !user
+                    ? 0
+                    : currencyFormat(totalPrice)}
+                </div>
+              </div>
+            ))}
         </li>
       </ul>
       <div className="display-flex space-between receipt-title">
@@ -25,13 +34,19 @@ const OrderReceipt = () => {
           <strong>Total:</strong>
         </div>
         <div>
-          <strong>₩ 최종가격</strong>
+          <strong>
+            ₩ {cartList.length === 0 || !user ? 0 : currencyFormat(totalPrice)}
+          </strong>
         </div>
       </div>
       {location.pathname.includes("/cart") && (
         <Button
           variant="dark"
-          className="payment-button"
+          className={
+            cartList.length === 0 || !user
+              ? "payment-button-disable"
+              : "payment-button"
+          }
           onClick={() => navigate("/payment")}
         >
           결제 계속하기

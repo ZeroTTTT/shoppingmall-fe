@@ -19,6 +19,7 @@ const AdminOrderPage = () => {
     page: query.get("page") || 1,
     ordernum: query.get("ordernum") || "",
   });
+  const error = useSelector((state) => state.order.error);
   const [open, setOpen] = useState(false);
   const totalPageNum = useSelector((state) => state.order.totalPageNum);
   const tableHeader = [
@@ -44,6 +45,8 @@ const AdminOrderPage = () => {
     const queryString = params.toString();
 
     navigate("?" + queryString);
+    // console.log('searchQuery', queryString) //추가 
+    // dispatch(orderActions.getOrderList({ ...searchQuery })) //추가
   }, [searchQuery]);
 
   const openEditForm = (order) => {

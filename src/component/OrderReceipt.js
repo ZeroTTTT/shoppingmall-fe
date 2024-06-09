@@ -39,7 +39,7 @@ const OrderReceipt = ({ cartList, totalPrice, user }) => {
           </strong>
         </div>
       </div>
-      {location.pathname.includes("/cart") && (
+      {location.pathname.includes("/cart") && cartList.length > 0 && (
         <Button
           variant="dark"
           className={

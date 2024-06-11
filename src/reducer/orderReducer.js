@@ -26,7 +26,7 @@ function orderReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        orderList: payload.data,
+        orderList: payload.orderList,
         totalPageNum: payload.totalPageNum,
       };
     case types.CREATE_ORDER_FAIL:

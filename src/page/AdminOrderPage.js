@@ -17,7 +17,7 @@ const AdminOrderPage = () => {
   const orderList = useSelector((state) => state.order.orderList);
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
-    ordernum: query.get("ordernum") || "",
+    orderNum: query.get("orderNum") || "",
   });
   const error = useSelector((state) => state.order.error);
   const [open, setOpen] = useState(false);
@@ -33,21 +33,22 @@ const AdminOrderPage = () => {
     "Status",
   ];
 
-  useEffect(() => {
-    dispatch(orderActions.getOrderList({ ...searchQuery }));
-  }, [query]);
+  // useEffect(() => {
+  //   dispatch(orderActions.getOrderList({ ...searchQuery }));
+  // }, [query]);
 
   useEffect(() => {
-    if (searchQuery.ordernum === "") {
-      delete searchQuery.ordernum;
+    if (searchQuery.orderNum === "") {
+      delete searchQuery.orderNum;
     }
     const params = new URLSearchParams(searchQuery);
-    const queryString = params.toString();
+    // const queryString = params.toString();
+    const query = params.toString();
 
-    navigate("?" + queryString);
-    // console.log('searchQuery', queryString) //추가 
-    // dispatch(orderActions.getOrderList({ ...searchQuery })) //추가
-  }, [searchQuery]);
+    navigate("?" + query);
+    console.log('searchQuery', searchQuery) //추가 
+    dispatch(orderActions.getOrderList({ ...searchQuery })) //추가
+  }, [searchQuery, query]);
 
   const openEditForm = (order) => {
     setOpen(true);
@@ -70,7 +71,7 @@ const AdminOrderPage = () => {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             placeholder="오더번호"
-            field="ordernum"
+            field="orderNum"
           />
         </div>
 

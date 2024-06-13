@@ -133,7 +133,8 @@ const Navbar = ({ user }) => {
 
       <div className="nav-logo">
         <Link to="/">
-          <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" />
+          {/* <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" /> */}
+          <img width={510} src="/image/logo2.png" alt="logo2.png" />
         </Link>
       </div>
       <div className="nav-menu-area">

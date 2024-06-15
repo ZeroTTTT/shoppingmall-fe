@@ -7,7 +7,6 @@ const loginWithToken = () => async (dispatch) => {
     dispatch({type:types.LOGIN_WITH_TOKEN_REQUEST})
     const response = await api.get('/user/me')
     if(response.status!==200) throw new Error(response.error)
-    // console.log('rrrrrr', response)
     dispatch({type:types.LOGIN_WITH_TOKEN_SUCCESS, payload: response.data})
   } catch(error) {
     dispatch({type:types.LOGIN_WITH_TOKEN_FAIL, payload:error})
@@ -18,12 +17,10 @@ const loginWithEmail = ({email, password}) => async (dispatch) => {
   try{
     dispatch({type:types.LOGIN_REQUEST})
     const response = await api.post('/auth/login',{email, password})
-    // console.log('rrrrrr', response)
     if (response.status !== 200) throw new Error(response.error)
     sessionStorage.setItem('token', response.data.token)
     dispatch({type:types.LOGIN_SUCCESS, payload:response.data})
   }catch(error){
-    // console.log('something fail?', error)
     dispatch({type:types.LOGIN_FAIL, payload:error.error})
   }
 };

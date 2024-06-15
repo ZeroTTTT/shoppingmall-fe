@@ -26,7 +26,6 @@ const Navbar = ({ user }) => {
     "Acc",
     "Shoes",
   ];
-
   const searchKeyword = useSelector((state) => state.product.searchKeyword);
 
   let [width, setWidth] = useState(0);
@@ -37,11 +36,9 @@ const Navbar = ({ user }) => {
         dispatch({ type: types.SET_SEARCH_KEYWORD, payload: "" });
         return navigate("/");
       }
-
       let searchKeyword = event.target.value;
       dispatch({ type: types.SET_SEARCH_KEYWORD, payload: searchKeyword });
       navigate(`?name=${event.target.value}`);
-      // dispatch(productActions.getProductList({ ...searchQuery }))
     }
   };
   const logout = () => {

@@ -70,9 +70,6 @@ const ProductAll = () => {
     const params = new URLSearchParams(searchQuery);
     const query = params.toString();
     navigate("?" + query);
-    console.log("searchQuery = ", searchQuery);
-    console.log("query = ", query);
-    // dispatch(productActions.getProductList({ ...searchQuery }))
   }, [searchQuery]);
 
   useEffect(() => {

@@ -37,14 +37,11 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const [cloudName] = useState(CLOUDINARY_CLOUD_NAME);
   const [uploadPreset] = useState(CLOUDINARY_PRESET);
 
-
-  ///////임시
   const [query, setQuery] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
     name: query.get("name") || "",
   }); //검색 조건들을 저장하는 객체
- ///////임시
 
 
   const [uwConfig] = useState({

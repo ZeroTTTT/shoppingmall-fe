@@ -15,7 +15,6 @@ const Login = () => {
   const error = useSelector((state) => state.user.error);
 
   const loginWithEmail = (event) => {
-    // console.log('dddd',event)
     event.preventDefault();
     //이메일,패스워드를 가지고 백엔드로 보내기
     dispatch(userActions.loginWithEmail({email, password}));
@@ -65,12 +64,6 @@ const Login = () => {
               아직 계정이 없으세요?<Link to="/register">회원가입 하기</Link>{" "}
             </div>
           </div>
-
-          {/* <div className="text-align-center mt-2">
-            <p>-외부 계정으로 로그인하기-</p>
-            <div className="display-center"></div>
-          </div> */}
-
           <div className="text-align-center mt-2">
             <p>-외부 계정으로 로그인하기-</p>
             <div className="display-center">

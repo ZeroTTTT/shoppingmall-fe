@@ -7,7 +7,6 @@ const addToCart =
     try{
       dispatch({type:types.ADD_TO_CART_REQUEST});
       const response = await api.post('/cart', {productId:id, size, qty:1})
-      console.log('rrrrrc',response)
       if (response.status !== 200) throw new Error(response.error);
       dispatch({  
         type: types.ADD_TO_CART_SUCCESS,
@@ -60,7 +59,6 @@ const updateQty = (id, value) => async (dispatch) => {
   try {
     dispatch({ type: types.UPDATE_CART_ITEM_REQUEST });
     const response = await api.put(`/cart/${id}`, value);
-    console.log("updateQty ", response);
     if (response.status !== 200) {
       throw new Error(response.error);
     }

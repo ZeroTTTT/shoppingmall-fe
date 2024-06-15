@@ -75,7 +75,6 @@ const PaymentPage = () => {
   };
 
   const handleInputFocus = (e) => {
-    // console.log('cccc', e.target.name)
     setCardValue({ ...cardValue, focus: e.target.name });
   };
   //카트에 아이템이 없다면 다시 카트페이지로 돌아가기 (결제할 아이템이 없으니 결제페이지로 가면 안됌)

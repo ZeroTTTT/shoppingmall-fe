@@ -16,7 +16,10 @@ const ProductCard = ({ product }) => {
         src={product.image}
         alt={product.name}
       />
-      <div className='nametext'>{product.name}<h5 className='new-text'>{product?.isNew == true ? "NEW" : ""}</h5></div>
+      <div className='nametext'>
+        {product.name}
+        {/* <h5 className='new-text'>{product?.isNew == true ? "NEW" : ""}</h5> */}
+      </div>
       <div className={`price`}>₩{product.price}</div>
 
     </div>

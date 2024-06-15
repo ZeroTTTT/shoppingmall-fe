@@ -7,6 +7,7 @@ import { productActions } from "../action/productAction";
 import { commonUiActions } from "../action/commonUiAction";
 import ReactPaginate from "react-paginate";
 import ClipLoader from "react-spinners/ClipLoader";
+import PopupCard from '../component/PopupCard';
 
 const ProductAll = () => {
   const navigate = useNavigate();
@@ -14,13 +15,37 @@ const ProductAll = () => {
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.product.error);
   const searchKeyword = useSelector((state) => state.product.searchKeyword);
-
   const { productList, totalPageNum } = useSelector(state => state.product);
   const [query, setQuery] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState({
     page: query.get("page") || 1,
     name: query.get("name") || "",
+    category: query.get("category") || "",
   }); //검색 조건들을 저장하는 객체
+
+  const { isFirst } = useSelector((state) => state.banner);
+  const [isPopup, setIsPopup] = useState(isFirst);  
+
+	const handlePopupClose = () => {
+		setIsPopup(false);
+    dispatch({ type: 'SET_FIRST_MAIN', payload: false });
+	};  
+
+	useEffect(() => {
+		setIsPopup(isFirst);
+	}, [isFirst]);
+  
+
+  useEffect(() => {
+    if (searchQuery.category !== "") {
+      setIsPopup(false);
+    }    
+  }, [])
+
+  useEffect(() => {
+    dispatch(productActions.getProductList({ ...searchQuery }));
+  }, [query])
+
 
   // 처음 로딩하면 상품리스트 
   //상품리스트 가져오기 (url쿼리 맞춰서)
@@ -36,6 +61,11 @@ const ProductAll = () => {
     if (searchQuery.name === "undefined") {
       delete searchQuery.name;
     }    
+
+    if (searchQuery.category === "all") {
+      delete searchQuery.category;
+    }    
+
     // URLSearchParams - 객체를 쿼리로 만들어줌
     const params = new URLSearchParams(searchQuery);
     const query = params.toString();
@@ -64,32 +94,6 @@ const ProductAll = () => {
           :
           (
             <Container>
-              {/* <Row>
-                {productList?.map((product, index) =>
-                  <Col key={index} className="card" md={3} sm={12}>
-                    <ProductCard product={product} />
-                  </Col>
-                )}
-              </Row> */}
-
-{/* <Row>
-        {productList.length > 0 ? (
-            productList.map((item) => (
-                <Col md={3} sm={12} key={item._id}>
-                  <ProductCard item={item} />
-                </Col>
-            ))
-        ) : (
-            <div className="text-align-center empty-bag">
-              {searchQuery.name === "" ? (
-                  <h2>등록된 상품이 없습니다!</h2>
-              ) : (
-                  <h2>{searchQuery.name}과 일치한 상품이 없습니다!</h2>
-              )}
-            </div>
-        )}
-      </Row>     */}
-
               <Row>
                 {productList.length > 0 ? (
                     productList?.map((product, index) =>
@@ -103,7 +107,8 @@ const ProductAll = () => {
                 {searchQuery.name === "" ? (
                     <h2>등록된 상품이 없습니다!</h2>
                 ) : (
-                    <h2>{searchQuery.name}과 일치한 상품이 없습니다!</h2>
+                    // <h2>{searchQuery.name}과 일치한 상품이 없습니다!</h2>
+                    <h2>조건과 일치한 상품이 없습니다!</h2>
                 )}
               </div>
                 )}  
@@ -133,6 +138,7 @@ const ProductAll = () => {
                 disabledLinkClassName="disabled-link"
                 className="display-center list-style-none"
               />
+              <PopupCard showPopup={isPopup} setShowPopup={handlePopupClose} />
             </Container>
           )
       }

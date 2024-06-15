@@ -20,20 +20,19 @@ const Navbar = ({ user }) => {
   const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = [
-    "여성",
-    "Divided",
-    "남성",
-    "신생아/유아",
-    "아동",
-    "H&M HOME",
-    "Sale",
-    "지속가능성",
+    "All",
+    "Top",
+    "Pants",
+    "Acc",
+    "Shoes",
   ];
+
+  const searchKeyword = useSelector((state) => state.product.searchKeyword);
+
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
-      // console.log('enter')
       if (event.target.value === "") {
         dispatch({ type: types.SET_SEARCH_KEYWORD, payload: "" });
         return navigate("/");
@@ -41,14 +40,15 @@ const Navbar = ({ user }) => {
 
       let searchKeyword = event.target.value;
       dispatch({ type: types.SET_SEARCH_KEYWORD, payload: searchKeyword });
-      // console.log("tt", searchKeyword);
       navigate(`?name=${event.target.value}`);
       // dispatch(productActions.getProductList({ ...searchQuery }))
     }
   };
   const logout = () => {
     dispatch(userActions.logout());
+    dispatch({ type: 'SET_FIRST_MAIN', payload: true });
   };
+  
   return (
     <div>
       {showSearchBox && (
@@ -133,7 +133,6 @@ const Navbar = ({ user }) => {
 
       <div className="nav-logo">
         <Link to="/">
-          {/* <img width={100} src="/image/hm-logo.png" alt="hm-logo.png" /> */}
           <img width={510} src="/image/logo2.png" alt="logo2.png" />
         </Link>
       </div>
@@ -141,7 +140,9 @@ const Navbar = ({ user }) => {
         <ul className="menu">
           {menuList.map((menu, index) => (
             <li key={index}>
-              <a href="#">{menu}</a>
+              {/* <a href="#">{menu}</a> */}
+              {/* <a href='?category=top'>{menu}</a> */}
+              <a href={`?category=${menu.toLowerCase()}`}>{menu}</a>
             </li>
           ))}
         </ul>

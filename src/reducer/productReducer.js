@@ -41,6 +41,9 @@ function productReducer(state = initialState, action) {
     case types.SET_SEARCH_KEYWORD:
       return {...state, searchKeyword: payload};      
 
+    case types.SET_SEARCH_CATEGORY:
+      return {...state, searchCategory: payload};        
+
     case types.GET_PRODUCT_DETAIL_SUCCESS:
       return {...state, loading: false, selectedProduct: payload};      
 
